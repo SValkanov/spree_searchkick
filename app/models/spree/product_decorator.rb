@@ -1,5 +1,14 @@
 Spree::Product.class_eval do
-  searchkick word_start: [:name], settings: {number_of_replicas: 0}
+  #searchkick word_start: [:name], settings: {number_of_replicas: 0}
+  searchkick index_name: elastic_index_name, searchable: searchable_attributes, settings: {number_of_replicas: 0}
+
+  def searchable_attributes
+    [:name, :description]
+  end
+
+  def elastic_index_name
+    "spree_products"
+  end
 
   def search_data
     json = {
