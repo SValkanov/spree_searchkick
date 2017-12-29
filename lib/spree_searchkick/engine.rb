@@ -19,5 +19,9 @@ module SpreeSearchkick
     end
 
     config.to_prepare &method(:activate).to_proc
+
+    initializer "spree_searchkick.preferences", before: :load_config_initializers do
+      SpreeSearchkick::Config = Spree::SearchkickSettings.new
+    end
   end
 end
